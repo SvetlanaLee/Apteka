@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
 const checkAuth = require('../../middleware/checkAuth');
+// const checkEmpty = require('../../middleware/checkEmpty');
 // const auth = require('./passport');
 
 registrRoute.get('/reg', (req, res) => {
@@ -11,16 +12,22 @@ registrRoute.get('/reg', (req, res) => {
 });
 
 registrRoute.post('/reg', async (req, res) => {
-  const {
-    name, email, password, login,
-  } = req.body;
-  await User.create({
-    name,
-    email,
-    password: await bcrypt.hash(password, 10),
-    login,
-  });
-  res.redirect('/');
+  try {
+    const {
+      name, email, password, login,
+    } = req.body;
+    const user = await User.create({
+      name,
+      email,
+      password: await bcrypt.hash(password, 10),
+      login,
+    });
+    req.session.user = user;
+    req.session.isAuthorized = true;
+    res.redirect('/');
+  } catch (error) {
+    res.render('error', { error: error.message });
+  }
 });
 
 registrRoute.get('/auth', (req, res) => {
@@ -38,12 +45,18 @@ registrRoute.post('/auth', async (req, res) => {
     req.session.isAuthorized = true;
     res.redirect('/');
   } else {
-    res.send('Something wrong, check your login or password!');
+    res.send('Пожалуйста проверьте логин и пароль!');
   }
 });
 
 registrRoute.get('/profile', checkAuth, (req, res) => {
   res.render('users/profile');
+});
+
+registrRoute.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.clearCookie('coockie');
+  res.redirect('/');
 });
 
 module.exports = registrRoute;
