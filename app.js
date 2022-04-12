@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 app.use('/', indexRoute);
 app.use('/', registrRoute);

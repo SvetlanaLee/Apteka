@@ -1,0 +1,8 @@
+{{#if isAuthorized}}
+<a href="/profile">{{this.name}}</a>
+<a href="/basket">Корзина</a>
+<a href="/logout">Выйти</a>
+{{else }}
+<a href="/auth">Aвторизоваться</a>
+<a href="/reg">Зарегистрироваться</a>
+{{/if}}
