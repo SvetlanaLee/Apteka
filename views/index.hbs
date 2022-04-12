@@ -1,0 +1,8 @@
+{{#if isAuthorized}}
+<a href="/profile">{{this.name}}</a>
+<a href="/logout">Выйти</a>
+{{else }}
+<a href="/auth">Логин</a>
+<a href="/reg">Зарегистрироваться</a>
+<p>Необходимо авторизоваться</p>
+{{/if}}
