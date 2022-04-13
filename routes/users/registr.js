@@ -1,13 +1,9 @@
 const registrRoute = require('express').Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-// const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
-
-const isAuthorized = require('../../middleware/isAuthorized');
 const mailer = require('../../nodemailer');
-// const checkEmpty = require('../../middleware/checkEmpty');
-
+// const jwt = require('jsonwebtoken');
 // const auth = require('./passport');
 
 registrRoute.get('/reg', (req, res) => {
@@ -47,10 +43,7 @@ registrRoute.post('/reg', async (req, res) => {
   }
 });
 
-registrRoute.get('/auth', isAuthorized, (req, res) => res.render('users/auth', {
-  isAuthorized: req.session?.isAuthorized,
-  name: req.session?.user?.name,
-}));
+registrRoute.get('/auth', (req, res) => res.render('users/auth'));
 
 registrRoute.post('/auth', async (req, res) => {
   const { login, password } = req.body;
@@ -60,10 +53,7 @@ registrRoute.post('/auth', async (req, res) => {
   if (user && await bcrypt.compare(password, user.password)) {
     req.session.user = user;
     req.session.isAuthorized = true;
-    return res.render('index', {
-      isAuthorized: req.session?.isAuthorized,
-      name: req.session?.user?.name,
-    });
+    return res.render('index');
   }
   return res.send('Пожалуйста проверьте логин и пароль!');
 });
@@ -87,10 +77,7 @@ registrRoute.get('/failure', (req, res) => res.send('Something wrong'));
 registrRoute.get('/protected', (req, res) => res.send('Success auth'));
 // ------------------------------
 
-registrRoute.get('/profile', isAuthorized, (req, res) => res.render('users/profile', {
-  isAuthorized: req.session?.isAuthorized,
-  name: req.session?.user?.name,
-}));
+registrRoute.get('/profile', (req, res) => res.render('users/profile'));
 
 registrRoute.get('/logout', (req, res) => {
   req.session.destroy();
