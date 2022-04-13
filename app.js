@@ -1,4 +1,3 @@
-const dbConnectionCheck = require("./db/dbConnectionCheck");
 require('dotenv').config();
 require('./config/passport-google');
 const express = require('express');
@@ -6,6 +5,7 @@ const passport = require('passport');
 const path = require('path');
 const hbs = require('hbs');
 const fs = require('fs');
+const dbConnectionCheck = require('./db/dbConnectionCheck');
 
 let https;
 try {
@@ -44,7 +44,7 @@ app.use(expressSession(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
