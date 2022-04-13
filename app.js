@@ -1,6 +1,6 @@
-const dbConnectionCheck = require('./db/dbConnectionCheck');
 require('dotenv').config();
 require('./config/passport-google');
+
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
@@ -19,6 +19,7 @@ const PORT = process.env.PORT ?? 3000;
 const cookieParser = require('cookie-parser'); // библиотека необходимая для чтения дынных с куки
 const expressSession = require('express-session');
 const FileStore = require('session-file-store')(expressSession);
+const dbConnectionCheck = require('./db/dbConnectionCheck');
 const indexRoute = require('./routes/index');
 const registrRoute = require('./routes/users/registr');
 
