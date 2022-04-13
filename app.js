@@ -1,3 +1,4 @@
+const dbConnectionCheck = require('./db/dbConnectionCheck');
 require('dotenv').config();
 require('./config/passport-google');
 const express = require('express');
@@ -25,7 +26,10 @@ const registrRoute = require('./routes/users/registr');
 const sessionConfig = {
   name: 'coockie',
   store: new FileStore(), // добавить после установки session-file-store
+
+  secret: 'keyboard cat',
   secret: 'secret',
+
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // устанавливаем сколько живет кука
     httpOnly: false,
@@ -43,12 +47,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use('/', indexRoute);
+app.use('/', registrRoute);
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
-app.use('/', indexRoute);
-app.use('/', registrRoute);
+dbConnectionCheck();
 
 https
   .createServer(
