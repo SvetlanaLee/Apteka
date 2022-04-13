@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
 const checkAuth = require('../../middleware/checkAuth');
+const mailer = require('../../nodemailer');
 // const checkEmpty = require('../../middleware/checkEmpty');
 // const auth = require('./passport');
 
@@ -24,6 +25,19 @@ registrRoute.post('/reg', async (req, res) => {
     });
     req.session.user = user;
     req.session.isAuthorized = true;
+    const message = {
+      from: 'Apteka <jovani.hilpert36@ethereal.email>',
+      to: req.body.email,
+      subject: 'Добро пожаловать!',
+      text: `Подздравляем с успешной регистрацией.
+      Ваши данные: 
+      логин ${req.body.login}
+      password ${req.body.password}
+      Данное письмо не требует ответа.
+      
+      С заботой, Ваша Аптека.`,
+    };
+    mailer(message);
     res.redirect('/');
   } catch (error) {
     res.render('error', { error: error.message });
