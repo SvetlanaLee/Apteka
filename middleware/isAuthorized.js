@@ -1,6 +1,9 @@
 const isAuthorized = (req, res, next) => {
-  res.locals.user = req.session?.user;
-  next();
+  if (req.session) {
+    res.locals.user = req.session?.user;
+    res.locals.isAuthorized = req.session?.isAuthorized;
+    next();
+  }
 };
 
 module.exports = isAuthorized;
