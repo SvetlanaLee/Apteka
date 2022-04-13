@@ -1,6 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 // eslint-disable-next-line prefer-destructuring
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const passport = require('passport');
 const { User } = require('../../db/models');
 
 module.exports = function auth(passport) {

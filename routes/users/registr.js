@@ -2,6 +2,9 @@ const registrRoute = require('express').Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { User } = require('../../db/models');
+const { isAuthorized } = require('../../middleware/isAuthorized');
+const checkAuth = require('../../middleware/checkAuth');
+
 const mailer = require('../../nodemailer');
 // const jwt = require('jsonwebtoken');
 // const auth = require('./passport');

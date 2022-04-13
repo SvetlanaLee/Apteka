@@ -1,11 +1,14 @@
+<div class="authdev">
 <h1>Авторизация</h1>
+<hr>
 {{#if isAuthorized}}
-<p>Вы авторизованы, {{this.name}}</p>
+<p class="profileName"  >Вы авторизованы, {{this.name}}</p>
 {{else }}
-<form action="/auth" method="POST">
-  <input type="text" name="login" placeholder="login" required>
-  <input type="password" name="password" placeholder="password" required>
-  <button type="submit">Войти</button>
-  <a href="/auth/google">Авторизация Google</a>
+<form class="authdev2" action="/auth" method="POST">
+  <input class="inp" type="text" name="login" placeholder="Логин" required>
+  <input class="inp" type="password" name="password" placeholder="Пароль" required>
+  <button class="btn2" type="submit">Войти</button>
+  <a href="/auth/google"><button type="button" class="btn3">Авторизация Google</button> </a>
 </form>
 {{/if}}
+</div>
