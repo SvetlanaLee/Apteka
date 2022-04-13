@@ -4,7 +4,7 @@ const passport = require('passport');
 // const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
 
-const checkAuth = require('../../middleware/checkAuth');
+const isAuthorized = require('../../middleware/isAuthorized');
 const mailer = require('../../nodemailer');
 // const checkEmpty = require('../../middleware/checkEmpty');
 
