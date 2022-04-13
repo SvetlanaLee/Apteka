@@ -22,15 +22,13 @@ const FileStore = require('session-file-store')(expressSession);
 const dbConnectionCheck = require('./db/dbConnectionCheck');
 const indexRoute = require('./routes/index');
 const registrRoute = require('./routes/users/registr');
+const isAuthorized = require('./middleware/isAuthorized');
 
 // для сохранности сессий в наших данных
 const sessionConfig = {
   name: 'coockie',
   store: new FileStore(), // добавить после установки session-file-store
-
   secret: 'keyboard cat',
-  secret: 'secret',
-
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // устанавливаем сколько живет кука
     httpOnly: false,
@@ -52,6 +50,7 @@ app.use(express.json());
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(isAuthorized);
 app.use('/', indexRoute);
 app.use('/', registrRoute);
 
@@ -74,6 +73,6 @@ https
     console.log('Сервер стартовал по протоколу HTTPS, порт:', PORT);
   });
 
-// app.listen(PORT, (req, res) => {
-//   console.log('Сервер стартовал по протоколу HTTP, порт:', PORT);
+// app.listen(3001, (req, res) => {
+//   console.log('Сервер стартовал по протоколу HTTP, порт:', 3001);
 // });
