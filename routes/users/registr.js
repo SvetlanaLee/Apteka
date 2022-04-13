@@ -1,10 +1,10 @@
 const registrRoute = require('express').Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
-const checkAuth = require('../../middleware/checkAuth');
-// const checkEmpty = require('../../middleware/checkEmpty');
+const isAuthorized = require('../../middleware/isAuthorized');
+const isLoggedIn = require('../../middleware/isLoggedIn');
 // const auth = require('./passport');
 
 registrRoute.get('/reg', (req, res) => {
@@ -24,34 +24,59 @@ registrRoute.post('/reg', async (req, res) => {
     });
     req.session.user = user;
     req.session.isAuthorized = true;
-    res.redirect('/');
+    res.render('index', {
+      isAuthorized: req.session?.isAuthorized,
+      name: req.session?.user?.name,
+    });
   } catch (error) {
     res.render('error', { error: error.message });
   }
 });
 
-registrRoute.get('/auth', (req, res) => {
-  res.render('users/auth');
-});
+registrRoute.get('/auth', isAuthorized, (req, res) => res.render('users/auth', {
+  isAuthorized: req.session?.isAuthorized,
+  name: req.session?.user?.name,
+}));
 
 registrRoute.post('/auth', async (req, res) => {
   const { login, password } = req.body;
-  console.log('login', login);
   const user = await User.findOne({
     where: { login },
   });
   if (user && await bcrypt.compare(password, user.password)) {
     req.session.user = user;
     req.session.isAuthorized = true;
-    res.redirect('/');
-  } else {
-    res.send('Пожалуйста проверьте логин и пароль!');
+    return res.render('index', {
+      isAuthorized: req.session?.isAuthorized,
+      name: req.session?.user?.name,
+    });
   }
+  return res.send('Пожалуйста проверьте логин и пароль!');
 });
+// ------------------------------
+// Аутентификация Google
+registrRoute.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }),
+);
 
-registrRoute.get('/profile', checkAuth, (req, res) => {
-  res.render('users/profile');
-});
+registrRoute.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/protected',
+    failureRedirect: '/failure',
+  }),
+);
+
+registrRoute.get('/failure', (req, res) => res.send('Something wrong'));
+
+registrRoute.get('/protected', (req, res) => res.send('Success auth'));
+// ------------------------------
+
+registrRoute.get('/profile', isAuthorized, (req, res) => res.render('users/profile', {
+  isAuthorized: req.session?.isAuthorized,
+  name: req.session?.user?.name,
+}));
 
 registrRoute.get('/logout', (req, res) => {
   req.session.destroy();
