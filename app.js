@@ -60,19 +60,19 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 dbConnectionCheck();
 
-https
-  .createServer(
-    // Provide the private and public key to the server by reading each
-    // file's content with the readFileSync() method.
-    {
-      key: fs.readFileSync('key.pem'),
-      cert: fs.readFileSync('cert.pem'),
-    },
-    app,
-  ).listen(PORT, (req, res) => {
-    console.log('Сервер стартовал по протоколу HTTPS, порт:', PORT);
-  });
+// https
+//   .createServer(
+//     // Provide the private and public key to the server by reading each
+//     // file's content with the readFileSync() method.
+//     {
+//       key: fs.readFileSync('key.pem'),
+//       cert: fs.readFileSync('cert.pem'),
+//     },
+//     app,
+//   ).listen(PORT, (req, res) => {
+//     console.log('Сервер стартовал по протоколу HTTPS, порт:', PORT);
+//   });
 
-// app.listen(3001, (req, res) => {
-//   console.log('Сервер стартовал по протоколу HTTP, порт:', 3001);
-// });
+app.listen(3000, (req, res) => {
+  console.log('Сервер стартовал по протоколу HTTP, порт:', 3000);
+});
