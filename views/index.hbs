@@ -1,3 +1,15 @@
 {{#unless isAuthorized}}
 <p>Необходимо авторизоваться</p>
 {{/unless}}
+
+<h3>Лекарства</h3>
+{{#each drugs}}
+<div data-id="{{id}}">
+  <img src="{{image}}" alt="" width="200">
+  <h4>{{name}}</h4>
+  <p>Описание: {{info}}</p>
+  <p>Цена: {{price}}</p>
+  <p>цена со скидкой: {{price}}</p>
+  <button class="js-buy">купить</button>
+</div>
+{{/each}}
