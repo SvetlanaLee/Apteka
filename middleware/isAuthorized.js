@@ -6,4 +6,4 @@ const isAuthorized = (req, res, next) => {
   }
 };
 
-module.exports = isAuthorized;
+module.exports = { isAuthorized } 

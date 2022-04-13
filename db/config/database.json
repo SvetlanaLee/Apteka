@@ -1,23 +1,18 @@
 {
-  "development": {
-    "username": "nick",
-    "password": null,
-    "database": "apteka",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+  "development": 
+  {
+    "use_env_variable": "DB_URL"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "use_env_variable": "DB_URL_TEST_DB"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "use_env_variable": "DB_URL_PRODUCTION_DB",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }

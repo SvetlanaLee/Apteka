@@ -1,12 +1,30 @@
-const dbConnectionCheck = require("./db/dbConnectionCheck");
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-dupe-keys */
+/* eslint-disable no-unused-vars */
+/* eslint-disable global-require */
+/* eslint-disable linebreak-style */
+/* eslint-disable import/order */
+/* eslint-disable import/extensions */
+/* eslint-disable quotes */
 require('dotenv').config();
 require('./config/passport-google');
+
+const dbConnectionCheck = require("./db/dbConnectionCheck");
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const cookieParser = require("cookie-parser"); // библиотека необходимая для чтения дынных с куки
+const expressSession = require("express-session");
+const FileStore = require("session-file-store")(expressSession);
+const indexRoute = require("./routes/index");
+const registrRoute = require("./routes/users/registr");
+
+// const sequelize = require('sequelize');
 let https;
 try {
   https = require('https');
@@ -16,11 +34,6 @@ try {
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-const cookieParser = require("cookie-parser"); // библиотека необходимая для чтения дынных с куки
-const expressSession = require("express-session");
-const FileStore = require("session-file-store")(expressSession);
-const indexRoute = require("./routes/index");
-const registrRoute = require("./routes/users/registr");
 
 // для сохранности сессий в наших данных
 const sessionConfig = {
@@ -29,7 +42,7 @@ const sessionConfig = {
 
   secret: "keyboard cat",
   secret: 'secret',
-
+  
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // устанавливаем сколько живет кука
     httpOnly: false,
@@ -44,19 +57,18 @@ app.use(expressSession(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+
 app.use("/", indexRoute);
 app.use("/", registrRoute);
 
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
-hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 dbConnectionCheck();
 

@@ -1,9 +1,12 @@
-<a href="/">Главная</a>
+<div class="navbar2">
+  
+  <a class="btn" href="/">Главная</a>
 {{#if isAuthorized}}
-<a href="/profile">{{this.name}}</a>
-<a href="/basket">Корзина</a>
-<a href="/logout">Выйти</a>
+<a class="btn" href="/profile" style="color:rgba(255, 255, 0, 0.863) ">{{this.name}}</a>
+<a class="btn" href="/basket">Корзина</a>
+<a class="btn" href="/logout">Выйти</a>
 {{else }}
-<a href="/auth">Aвторизоваться</a>
-<a href="/reg">Зарегистрироваться</a>
+<a class="btn" href="/auth">Aвторизоваться</a>
+<a class="btn" href="/reg">Зарегистрироваться</a>
 {{/if}}
+ </div>

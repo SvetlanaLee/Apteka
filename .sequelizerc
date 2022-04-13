@@ -1,6 +1,6 @@
-require('dotenv').config();
 const path = require('path');
 
+require('dotenv').config();
 module.exports = {
   'config': path.resolve('db', 'config', 'database.json'),
   'models-path': path.resolve('db', 'models'),
