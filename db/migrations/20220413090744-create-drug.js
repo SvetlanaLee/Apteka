@@ -24,6 +24,14 @@ module.exports = {
       info: {
         type: Sequelize.STRING,
       },
+      discountPrice: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      havePromo: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
       categoryId: {
         type: Sequelize.INTEGER,
       },
