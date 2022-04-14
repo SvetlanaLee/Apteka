@@ -1,5 +1,5 @@
+<div class="js-order">
 <h1>Ваша корзина</h1>
-<div>
   {{#each allBaskets}}
   <img src="{{'Drug.image'}}" alt="лого" width="200">
   <p>Название: {{'Drug.name'}}</p>
@@ -8,4 +8,7 @@
   <p>Цена: {{'Drug.discountPrice'}}</p>
   {{/if}}
   {{/each}}
+  <p>Скидка: {{totalDiscount}}</p>
+  <p> Итого: {{total}}</p>  
+  <button type="button" class="orderBtn" data-total="{{total}}">Оформить заказ</button>
 </div>
