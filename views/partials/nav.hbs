@@ -1,7 +1,10 @@
 <div class="navbar2">
-
+  <div class="logo">
+  <a href="/"><img src="stylesheet/logotype.png" alt="logo" style=" margin-top:40px; width: 150px;" height="120px"; ></a> 
+  </div>
   <a class="btn" href="/">Главная</a>
   {{#if isAuthorized}}
+ 
   <a class="btn" href="/profile" style="color:rgba(255, 255, 0, 0.863) ">{{user.name}}</a>
   <a class="btn" href="/basket">Корзина</a>
   <a class="btn" href="/logout">Выйти</a>
