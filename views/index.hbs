@@ -1,6 +1,5 @@
 {{#unless isAuthorized}}
 <h2 class="vxod">Для покупки необходимо <a href="/auth"> Aвторизоваться</h2></a>
-
 {{/unless}}
 <div class="drugbod">
   <br>
@@ -8,18 +7,22 @@
 <br>
 <div class="bodyindex">
 {{#if isAuthorized}}
+
+<div class="allCards">
+
 {{#each drugs}}
-<div class="card" data-id="{{id}}">
-  <img src="{{image}}" alt="" width="250" height="250px" style="margin-top: 5px;">
-  <h4>{{name}}</h4>
+
+<div class="card">
+  <img class="product-img" src="{{image}}" alt="" width="200">
+  <h4 class="item-title">{{name}}</h4>
   <p>Описание: {{info}}</p>
-   <div class="buybut">
-   <p style="font-size: 26px; margin:5px">Цена: <p style="color: rgb(10, 48, 105); font-size: 26px; margin:5px">{{price}}</p></p>
-   <hr>
-    <p  style="font-size: 26px; margin:5px">Цена со скидкой:<p style="color: rgb(9, 88, 45); font-size: 26px; margin:5px">{{price}}</p></p> 
-  <button class="btn4">купить</button>
-  </div>
-  
+  <p class="item-price">Цена: {{price}}</p>
+  {{#if havePromo}}
+  <p class="item-discount">цена со скидкой: {{discountPrice}}</p>
+  {{/if}}
+  <button data-id="{{id}}" type="button" class="jsBtn">купить</button>
+
+
 </div>
 {{/each}}
 {{else}}
@@ -28,12 +31,8 @@
   <img src="{{image}}" alt="" width="250px" height="250px" style="margin-top: 5px;">
   <h4>{{name}}</h4>
   <p>Описание: {{info}}</p>
-  <div class="buybut">
-  <p style="font-size: 26px; margin:5px">Цена:<p style="color: rgb(10, 48, 105); font-size: 26px; margin:5px"> {{price}}</p></p>
-  <p style="font-size: 26px; margin:5px">цена со скидкой: <p style="color: rgb(9, 88, 45); font-size: 26px; margin:5px"> {{price}}</p></p>
-  </div>
+  <p>Цена: {{price}}</p>
 </div>
 {{/each}}
 {{/if}}
-</div>
 </div>

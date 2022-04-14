@@ -22,6 +22,7 @@ const isAuthorized = require('./middleware/isAuthorized');
 const indexRoute = require('./routes/index');
 const registrRoute = require('./routes/users/registr');
 const profileRoute = require('./routes/users/profile');
+const basketRoute = require('./routes/basket');
 
 // для сохранности сессий в наших данных
 const sessionConfig = {
@@ -50,6 +51,7 @@ app.use(isAuthorized);
 app.use('/', indexRoute);
 app.use('/', registrRoute);
 app.use('/profile', profileRoute);
+app.use('/', basketRoute);
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));

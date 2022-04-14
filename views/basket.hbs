@@ -1,0 +1,11 @@
+<h1>Ваша корзина</h1>
+<div>
+  {{#each allBaskets}}
+  <img src="{{'Drug.image'}}" alt="лого" width="200">
+  <p>Название: {{'Drug.name'}}</p>
+  <p>Цена: {{'Drug.price'}}</p>
+  {{#if Drug.havePromo}}
+  <p>Цена: {{'Drug.discountPrice'}}</p>
+  {{/if}}
+  {{/each}}
+</div>
