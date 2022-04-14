@@ -2,30 +2,38 @@
 <h2 class="vxod">Для покупки необходимо <a href="/auth"> Aвторизоваться</h2></a>
 
 {{/unless}}
-<hr>
-<hr>
-<h2>Лекарства</h2>
+<div class="drugbod">
+  <br>
+<h1 style="text-align: center;">Лекарства</h1>
+<br>
 <div class="bodyindex">
 {{#if isAuthorized}}
 {{#each drugs}}
 <div class="card" data-id="{{id}}">
-  <img src="{{image}}" alt="" width="150" style="margin-top: 5px;">
+  <img src="{{image}}" alt="" width="250" height="250px" style="margin-top: 5px;">
   <h4>{{name}}</h4>
   <p>Описание: {{info}}</p>
-  <p style="font-size: 16px;">Цена: {{price}}</p>
-  <p>цена со скидкой: {{price}}</p>
+   <div class="buybut">
+   <p style="font-size: 26px; margin:5px">Цена: <p style="color: rgb(10, 48, 105); font-size: 26px; margin:5px">{{price}}</p></p>
+   <hr>
+    <p  style="font-size: 26px; margin:5px">Цена со скидкой:<p style="color: rgb(9, 88, 45); font-size: 26px; margin:5px">{{price}}</p></p> 
   <button class="btn4">купить</button>
+  </div>
+  
 </div>
 {{/each}}
 {{else}}
 {{#each drugs}}
 <div class="card" data-id="{{id}}">
-  <img src="{{image}}" alt="" width="150" style="margin-top: 5px;">
+  <img src="{{image}}" alt="" width="250px" height="250px" style="margin-top: 5px;">
   <h4>{{name}}</h4>
   <p>Описание: {{info}}</p>
-  <p>Цена: {{price}}</p>
-  <p>цена со скидкой: {{price}}</p>
+  <div class="buybut">
+  <p style="font-size: 26px; margin:5px">Цена:<p style="color: rgb(10, 48, 105); font-size: 26px; margin:5px"> {{price}}</p></p>
+  <p style="font-size: 26px; margin:5px">цена со скидкой: <p style="color: rgb(9, 88, 45); font-size: 26px; margin:5px"> {{price}}</p></p>
+  </div>
 </div>
 {{/each}}
 {{/if}}
+</div>
 </div>
