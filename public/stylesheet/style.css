@@ -20,7 +20,7 @@
 }
 .vxod{
     font-size: 55px;
-    margin-top: 250px;
+    margin-top: 50px;
     animation: vxod 1s 1;
 }
 @keyframes vxod {
@@ -103,5 +103,52 @@
 .profileName{
     font-size: 30px;
     color: white;
+    
+}
+
+/* Карточка Лекарств */ 
+
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 450px;
+    height: 500px;
+    text-align: center;
+    margin: 5px;
+    background-color: rgba(139, 191, 236, 0.479);
+}
+.card:hover{
+    background-color: rgba(139, 191, 236, 0.158);
+    box-shadow: -15px 17px 25px 5px rgba(34, 60, 80, 0.34);
+}
+
+.bodyindex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn4{
+    margin-top: 5px;
+    background-color: #00408B;
+    color: white;
+    padding: 5px;
+    width: 200px;
+    border-color: #00418b80;
+    border-radius: 10px;
+    box-shadow: -15px 17px 25px 5px rgba(34, 60, 80, 0.34);
+   
+}
+.btn4:hover{
+    background-color: #00418bc9;
+
+}
+
+
+/* Профиль */ 
+
+.profilebody{
+    display: flex;
     
 }
