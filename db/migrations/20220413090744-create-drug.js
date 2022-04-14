@@ -14,6 +14,10 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
       },
+      count: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       image: {
         type: Sequelize.TEXT,
       },

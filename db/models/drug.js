@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       info: DataTypes.STRING,
       categoryId: DataTypes.INTEGER,
       promoId: DataTypes.INTEGER,
+      count: DataTypes.INTEGER,
     },
 
     {
