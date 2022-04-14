@@ -1,4 +1,15 @@
 <h1>Профиль</h1>
-<h1>Редактировать профиль</h1>
+<h2>Имя: {{user.name}}</h2>
+<h2>Логин: {{user.login}}</h2>
+<h2>Электронная почта: {{user.email}}</h2>
+<a href="/profile/edit">Редактировать профиль</a>
 <h1>Мои заказы</h1>
+{{!-- <a href="/profile/orders">Мои заказы</a> --}}
+{{#each orders}}
+<div data-orderId="{{id}}">
+  <h4><a href="/profile/orders/{{id}}">Номер заказа: {{id}}</a></h4>
+  <p>Дата: {{updatedAt}}</p>
+  <p>Цена: {{total}} руб.</p>
+</div>
+{{/each}}
 <h1>Избранное</h1>
