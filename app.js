@@ -20,13 +20,14 @@ const cookieParser = require('cookie-parser'); // библиотека необ�
 const expressSession = require('express-session');
 const FileStore = require('session-file-store')(expressSession);
 const dbConnectionCheck = require('./db/dbConnectionCheck');
+const isAuthorized = require('./middleware/isAuthorized');
 const indexRoute = require('./routes/index');
 const registrRoute = require('./routes/users/registr');
-const isAuthorized = require('./middleware/isAuthorized');
+const profileRoute = require('./routes/users/profile');
 
 // для сохранности сессий в наших данных
 const sessionConfig = {
-  name: 'coockie',
+  name: 'cookie',
   store: new FileStore(), // добавить после установки session-file-store
   secret: 'keyboard cat',
   cookie: {
@@ -34,7 +35,7 @@ const sessionConfig = {
     httpOnly: false,
   },
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 };
 
 require('./routes/users/passport')(passport);
@@ -53,6 +54,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(isAuthorized);
 app.use('/', indexRoute);
 app.use('/', registrRoute);
+app.use('/profile', profileRoute);
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));

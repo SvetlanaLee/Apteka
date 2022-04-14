@@ -1,0 +1,17 @@
+<h1>Редактирование профиля</h1>
+
+<form id="editProfileForm" name="editProfileForm" method="post" action="/profile/edit" data-userId="{{user.id}}">
+  <label for="name-edit" class="name-edit">Имя:</label>
+  <input id="name-edit" name="name" type="text" value="{{user.name}}" tabindex="1" class="input name-edit" required>
+
+  <label for="email-edit" class="email-edit">Электронная почта:</label>
+  <input id="email-edit" name="email" type="email" value="{{user.email}}" tabindex="2" class="input email-edit"
+    required>
+
+  <label for="password-input" class="email-input">Пароль:</label>
+  <input id="password-input" name="password" type="password" value="" tabindex="3" class="input password-edit"
+    placeholder="Введите новый пароль" required>
+
+  <button type="submit" value="Update" tabindex="4" class="btn btn-edit-profile"
+    style="width: 100px; height 40px;">Отправить</button>
+</form>

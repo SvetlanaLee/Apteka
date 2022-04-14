@@ -37,10 +37,10 @@ registrRoute.post('/reg', async (req, res) => {
       С заботой, Ваша Аптека.`,
     };
     mailer(message);
-    res.redirect('/');
   } catch (error) {
     res.render('error', { error: error.message });
   }
+  return res.redirect('/');
 });
 
 registrRoute.get('/auth', (req, res) => res.render('users/auth'));
@@ -51,9 +51,11 @@ registrRoute.post('/auth', async (req, res) => {
     where: { login },
   });
   if (user && await bcrypt.compare(password, user.password)) {
+    console.log('pass', await bcrypt.compare(password, user.password));
     req.session.user = user;
     req.session.isAuthorized = true;
-    return res.render('index');
+    console.log('req.session.user', req.session.user);
+    return res.redirect('/');
   }
   return res.send('Пожалуйста проверьте логин и пароль!');
 });
@@ -77,12 +79,10 @@ registrRoute.get('/failure', (req, res) => res.send('Something wrong'));
 registrRoute.get('/protected', (req, res) => res.send('Success auth'));
 // ------------------------------
 
-registrRoute.get('/profile', (req, res) => res.render('users/profile'));
-
 registrRoute.get('/logout', (req, res) => {
   req.session.destroy();
-  res.clearCookie('coockie');
-  res.redirect('/');
+  res.clearCookie('cookie');
+  return res.redirect('/');
 });
 
 module.exports = registrRoute;
