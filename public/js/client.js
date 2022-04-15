@@ -17,4 +17,62 @@ async function addToBasket(event) {
   }
 }
 
+async function getOrder(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('orderBtn')) {
+    // console.log(event.target.dataset.total);
+    const total = {
+      total: event.target.dataset.total,
+    };
+
+    const response = await fetch('/addToOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(total),
+    });
+
+    window.location.href = '/order';
+  }
+
+  if (event.target.classList.contains('jsMinus')) {
+    // console.log('minus', event.target.dataset.idm);
+
+    const minus = {
+      id: event.target.dataset.idm,
+    };
+
+    const response2 = await fetch('/minus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(minus),
+    });
+
+    const minusHTML = await response2.text();
+    document.querySelector('.js-order').innerHTML = minusHTML;
+  }
+
+  if (event.target.classList.contains('jsPlus')) {
+    console.log('plus', event.target.dataset.idp);
+    const plus = {
+      id: event.target.dataset.idp,
+    };
+
+    const response3 = await fetch('/plus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(plus),
+    });
+    const plusHTML = await response3.text();
+    document.querySelector('.js-order').innerHTML = plusHTML;
+  }
+}
+
 document.querySelector('.allCards')?.addEventListener('click', addToBasket);
+
+document.querySelector('.js-order')?.addEventListener('click', getOrder);

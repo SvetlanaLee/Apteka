@@ -69,6 +69,11 @@ dbConnectionCheck();
 //   ).listen(PORT, (req, res) => {
 //     console.log('Сервер стартовал по протоколу HTTPS, порт:', PORT);
 //   });
+
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 app.listen(3000, (req, res) => {
   console.log('Сервер стартовал по протоколу HTTP, порт:', 3000);
 });

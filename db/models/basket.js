@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       drugId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       orderId: DataTypes.INTEGER,
+      count: DataTypes.INTEGER,
     },
     {
       sequelize,

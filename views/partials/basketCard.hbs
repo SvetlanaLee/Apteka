@@ -1,0 +1,6 @@
+{{#each allBaskets}}
+  <img src="{{'Drug.image'}}" alt="лого" width="200">
+  <p>Название: {{'Drug.name'}}</p>
+  <p>Цена за уп.: {{'Drug.price'}}</p>
+  <p>Кол-во: <button data-idm="{{id}}" class="jsMinus">-</button> {{count}} <button data-idp="{{id}}" class="jsPlus" >+</button> </p>
+{{/each}}

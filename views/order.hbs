@@ -1,0 +1,9 @@
+<h2>Введите ваши данные</h2>
+<form name="payOrder" method="POST" action="/order/status">
+  <input name="adress" type="text" placeholder="адрес доставки" required>
+  <input name="tel" type="text" placeholder="номер телефона" required>
+  <p>Оплата при получении</p>
+  <p>Сумма к оплате: {{total}} <span class="rouble">₽</span> </p>
+  <button type="submit">Заказать</button>
+</form>
+
