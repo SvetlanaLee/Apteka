@@ -14,11 +14,23 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
       },
+      count: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       image: {
         type: Sequelize.TEXT,
       },
       info: {
         type: Sequelize.STRING,
+      },
+      discountPrice: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      havePromo: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
       },
       categoryId: {
         type: Sequelize.INTEGER,

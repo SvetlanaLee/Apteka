@@ -1,28 +1,40 @@
-{{#unless isAuthorized}}
-<h2 class="vxod">Необходимо <a href="/auth"> Aвторизоваться</h2></a>
-
-{{/unless}}
-
-<h3>Лекарства</h3>
 {{#if isAuthorized}}
-{{#each drugs}}
-<div data-id="{{id}}">
-  <img src="{{image}}" alt="" width="200">
-  <h4>{{name}}</h4>
-  <p>Описание: {{info}}</p>
-  <p>Цена: {{price}}</p>
-  <p>цена со скидкой: {{price}}</p>
-  <button class="js-buy">купить</button>
-</div>
-{{/each}}
+{{> promoAuth}}
 {{else}}
-{{#each drugs}}
-<div data-id="{{id}}">
-  <img src="{{image}}" alt="" width="200">
-  <h4>{{name}}</h4>
-  <p>Описание: {{info}}</p>
-  <p>Цена: {{price}}</p>
-  <p>цена со скидкой: {{price}}</p>
+<div class="alert alert-warning text-center opacity-75" role="alert">
+  <h4>Для покупки необходимо <a href="/auth" class="alert-link"> авторизоваться</a></h4>
 </div>
-{{/each}}
+{{> promo}}
 {{/if}}
+
+<div class="drugbod">
+  <br>
+  <h1 style="text-align: center;">Лекарства</h1>
+  <br>
+</div>
+<div class="bodyindex">
+  {{#if isAuthorized}}
+  <div class="allCards">
+    {{#each drugs}}
+    <div class="card">
+      <img class="product-img" src="{{image}}" alt="" width="200">
+      <h4 class="item-title">{{name}}</h4>
+      <p>Описание: {{info}}</p>
+      <p class="item-price">Цена: {{price}} руб.</p>
+      {{#if havePromo}}
+      <p class="item-discount">Цена со скидкой: {{discountPrice}} руб.</p>
+      {{/if}}
+      <button data-id="{{id}}" type="button" class="jsBtn">В корзину</button>
+    </div>
+    {{/each}}
+    {{else}}
+    {{#each drugs}}
+    <div class="card" data-id="{{id}}">
+      <img src="{{image}}" alt="" width="250px" height="250px" style="margin-top: 5px;">
+      <h4>{{name}}</h4>
+      <p>Описание: {{info}}</p>
+      <p>Цена: {{price}} руб.</p>
+    </div>
+    {{/each}}
+    {{/if}}
+  </div>

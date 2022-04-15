@@ -23,6 +23,14 @@ module.exports = {
       status: {
         type: Sequelize.BOOLEAN,
       },
+      adress: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
+      tel: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
