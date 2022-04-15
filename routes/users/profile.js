@@ -21,7 +21,8 @@ profileRoute.get('/', async (req, res) => {
     },
     ],
   });
-  // console.log(orders);
+  orders.forEach((el) => el.date = el.updatedAt.toString().slice(0, 24));
+  console.log(orders);
   req.session.user = user;
   res.render('users/profile', { user, orders });
 });

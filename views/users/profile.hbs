@@ -13,20 +13,20 @@
   {{#each orders}}
   <div class="accordion accordion-flush w-100 mt-3" id="accordionOrders">
     <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingOne">
+      <h2 class="accordion-header" id="flush-heading-{{'Baskets.Drug.id'}}">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-          Номер заказа: {{id}}
+          data-bs-target="#flush-collapse-{{'Baskets.Drug.id'}}" aria-expanded="false"
+          aria-controls="flush-collapse-{{'Baskets.Drug.id'}}">
+          Номер заказа: {{id}} Дата: {{date}}
         </button>
       </h2>
-      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-        data-bs-parent="#accordionFlushOrders">
+      <div id="flush-collapse-{{'Baskets.Drug.id'}}" class="accordion-collapse collapse"
+        aria-labelledby="flush-heading-{{'Baskets.Drug.id'}}" data-bs-parent="#accordionFlushOrders">
         <div class="accordion-body">
-          <p>Дата: {{updatedAt}}</p>
           <p>Лекарство: {{'Baskets.Drug.name'}}</p>
           <p>Цена: {{'Baskets.Drug.price'}} руб.</p>
           <p>Цена со скидкой: {{'Baskets.Drug.discountPrice'}} руб.</p>
-          <p>Количество: {{'Baskets.Drug.count'}} руб.</p>
+          <p>Количество: {{'Baskets.Drug.count'}} шт.</p>
           <p>Общая цена: {{total}} руб.</p>
         </div>
       </div>
