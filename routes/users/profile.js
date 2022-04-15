@@ -1,16 +1,28 @@
 const profileRoute = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Order } = require('../../db/models');
+const {
+  User, Order, Basket, Drug,
+} = require('../../db/models');
 
 profileRoute.get('/', async (req, res) => {
-  // console.log(req.session.user);
   const { id } = req.session.user;
-  // console.log(id);
+  const userId = id;
   const user = await User.findByPk(id);
-  const orders = await Order.findAll({ where: { userId: id } });
+  const orders = await Order.findAll({
+    raw: true,
+    where: { userId },
+    include: [{
+      model: Basket,
+      attributes: [],
+      include: {
+        model: Drug,
+        attributes: ['name', 'price', 'discountPrice', 'count'],
+      },
+    },
+    ],
+  });
+  // console.log(orders);
   req.session.user = user;
-  // console.log('запрос в базу', user);
-  // console.log('запрос в сессию', req.session.user);
   res.render('users/profile', { user, orders });
 });
 
