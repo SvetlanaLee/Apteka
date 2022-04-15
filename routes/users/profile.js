@@ -13,7 +13,7 @@ profileRoute.get('/', async (req, res) => {
     where: { userId },
     include: [{
       model: Basket,
-      attributes: [],
+      attributes: ['id'],
       include: {
         model: Drug,
         attributes: ['name', 'price', 'discountPrice', 'count'],
