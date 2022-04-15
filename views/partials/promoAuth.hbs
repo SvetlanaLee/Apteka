@@ -8,7 +8,7 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       {{#each currentPromo}}
-      <div class="alert alert-info text-center" role="alert">
+      <div class="alert alert-info text-center opacity-75" role="alert">
         <h4>Акция этой недели {{date}} - {{end}}. Скидка {{discount}}%!</h4>
       </div>
       {{/each}}
@@ -24,7 +24,7 @@
           </div>
           <ul class="list-group list-group-flush w-100">
             <li class="list-group-item w-100">Цена: {{price}} руб.</li>
-            <li class="list-group-item w-100">Цена со скидкой: {{price}} руб.</li>
+            <li class="list-group-item w-100">Цена со скидкой: {{discountPrice}} руб.</li>
           </ul>
           <div class="card-body">
             <a href="#" class="btn btn-primary">В корзину</a>
@@ -35,7 +35,7 @@
     </div>
     <div class="carousel-item">
       {{#each sevenDayPromo}}
-      <div class="alert alert-info text-center" role="alert">
+      <div class="alert alert-info text-center opacity-75" role="alert">
         <h4>Акция следующей недели {{date}} - {{end}}. Скидка {{discount}}%!</h4>
       </div>
       {{/each}}
@@ -51,7 +51,7 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Цена: {{price}}</li>
-            <li class="list-group-item">Цена со скидкой: {{price}}</li>
+            <li class="list-group-item">Цена со скидкой: {{discountPrice}}</li>
           </ul>
           <div class="card-body">
             <a href="#" class="btn btn-primary">В корзину</a>
