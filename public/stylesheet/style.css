@@ -181,6 +181,15 @@
   animation: profileB 2s 1;
 }
 
+.accordion-button {
+  font-size: 1.5rem;
+}
+
+.accordion-body {
+  text-align: left;
+  font-size: 1.5rem;
+}
+
 @keyframes profileB {
   0% {
     opacity: 0%;
@@ -209,11 +218,12 @@
   color: rgb(2, 22, 2);
 }
 
-.buybut:hover{
+.buybut:hover {
   margin-top: 437px;
   /* background-color: #00418ba4; */
 
 }
+
 .drugbod {
   animation: dr 2s 1;
 }
@@ -243,7 +253,7 @@
 
 }
 
-.allCards{
+.allCards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
