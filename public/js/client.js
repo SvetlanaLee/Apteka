@@ -1,21 +1,3 @@
-// async function getPay(event) {
-//   console.log('hi');
-//   event.preventDefault();
-//   const data = {
-//     adress: event.target.adress.value,
-//     tel: event.target.tel.value,
-//     total: event.target.dataset.summa,
-//   };
-//   console.log(data);
-//   await fetch('/order/status', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(data),
-//   });
-// }
-
 async function addToBasket(event) {
   event.preventDefault();
   if (event.target.classList.contains('jsBtn')) {
@@ -38,7 +20,7 @@ async function addToBasket(event) {
 async function getOrder(event) {
   event.preventDefault();
   if (event.target.classList.contains('orderBtn')) {
-    console.log(event.target.dataset.total);
+    // console.log(event.target.dataset.total);
     const total = {
       total: event.target.dataset.total,
     };
@@ -52,13 +34,44 @@ async function getOrder(event) {
     });
 
     window.location.href = '/order';
-    // const resHTML = await response.text();
-    // console.log(resHTML);
-    // document.querySelector('.js-order').innerHTML = resHTML;
+  }
+
+  if (event.target.classList.contains('jsMinus')) {
+    // console.log('minus', event.target.dataset.idm);
+
+    const minus = {
+      id: event.target.dataset.idm,
+    };
+
+    const response2 = await fetch('/minus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(minus),
+    });
+
+    const minusHTML = await response2.text();
+    document.querySelector('.js-order').innerHTML = minusHTML;
+  }
+
+  if (event.target.classList.contains('jsPlus')) {
+    console.log('plus', event.target.dataset.idp);
+    const plus = {
+      id: event.target.dataset.idp,
+    };
+
+    const response3 = await fetch('/plus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(plus),
+    });
+    const plusHTML = await response3.text();
+    document.querySelector('.js-order').innerHTML = plusHTML;
   }
 }
-
-// document.payOrder?.addEventListener('click', getPay);
 
 document.querySelector('.allCards')?.addEventListener('click', addToBasket);
 

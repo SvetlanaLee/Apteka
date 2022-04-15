@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      count: {
+        type: Sequelize.INTEGER,
+      },
       drugId: {
         type: Sequelize.INTEGER,
         references: {
