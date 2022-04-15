@@ -25,7 +25,8 @@
             <li class="list-group-item w-100">Цена со скидкой: {{discountPrice}} руб.</li>
           </ul>
           <div class="card-body">
-            <a href="#" class="btn btn-primary">В корзину</a>
+            {{!-- <a href="#" class="btn btn-primary">В корзину</a> --}}
+            <button type="button" data-id="{{id}}" class="btn btn-primary">В корзину</button>
           </div>
         </div>
         {{/each}}
@@ -50,7 +51,7 @@
             <li class="list-group-item w-100">Цена со скидкой: {{discountPrice}} руб.</li>
           </ul>
           <div class="card-body">
-            <a href="#" class="btn btn-primary">В корзину</a>
+            <button type="button" data-id="{{id}}" class="btn btn-primary">В корзину</button>
           </div>
         </div>
         {{/each}}

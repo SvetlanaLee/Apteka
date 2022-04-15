@@ -17,6 +17,25 @@ async function addToBasket(event) {
   }
 }
 
+async function addPromoToBasket(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('btn')) {
+    console.log('click', event.target.dataset.id);
+
+    const id = {
+      id: event.target.dataset.id,
+    };
+
+    await fetch('/addToBasket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(id),
+    });
+  }
+}
+
 async function getOrder(event) {
   event.preventDefault();
   if (event.target.classList.contains('orderBtn')) {
@@ -72,6 +91,8 @@ async function getOrder(event) {
     document.querySelector('.js-order').innerHTML = plusHTML;
   }
 }
+
+document.querySelector('.carousel-inner')?.addEventListener('click', addPromoToBasket);
 
 document.querySelector('.allCards')?.addEventListener('click', addToBasket);
 
