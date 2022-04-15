@@ -99,6 +99,7 @@ basketRoute.post('/minus', async (req, res) => {
       ],
       include: {
         model: Drug,
+        order: [['Drug.id', 'DESC']],
       },
     });
     const total = findTotal(allBaskets);
@@ -123,6 +124,7 @@ basketRoute.post('/minus', async (req, res) => {
       ],
       include: {
         model: Drug,
+        order: [['Drug.id', 'DESC']],
       },
     });
 
@@ -171,9 +173,10 @@ basketRoute.post('/plus', async (req, res) => {
     ],
     include: {
       model: Drug,
+      order: [['Drug.id', 'DESC']],
     },
   });
-
+  console.log(allBaskets);
   const total = findTotal(allBaskets);
   const totalDiscount = findDiscount(allBaskets);
 
