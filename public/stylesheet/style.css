@@ -192,13 +192,28 @@
 }
 
 .buybut {
-  margin-top: 350px;
+  width: auto;
+  height: 50px;
+  margin-top: 440px;
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: #00418b00;
+  /* border: 3px; */
+  /* border-radius: 10px; */
+  border-color: #010d1b00;
+  text-align: center;
+  /* padding: 3px; */
+  align-items: center;
+  color: rgb(2, 22, 2);
 }
 
+.buybut:hover{
+  margin-top: 437px;
+  /* background-color: #00418ba4; */
+
+}
 .drugbod {
   animation: dr 2s 1;
 }
@@ -226,4 +241,10 @@
   height: 45px;
   color: white;
 
+}
+
+.allCards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
