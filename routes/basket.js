@@ -1,6 +1,7 @@
 const basketRoute = require('express').Router();
 const { Basket, Drug, Order } = require('../db/models');
 
+// Подсчет итоговой стоимости
 function findTotal(arr) {
   const price = arr.filter((basket) => basket['Drug.havePromo'] === false);
   let total = 0;
@@ -9,6 +10,7 @@ function findTotal(arr) {
   return total;
 }
 
+// подсчет итоговой скидки
 function findDiscount(array) {
   const discount = array.filter((basket) => basket['Drug.havePromo'] === true);
   let totalDiscount = 0;
@@ -19,6 +21,7 @@ function findDiscount(array) {
   return totalDiscount;
 }
 
+// Добавление товара в корзину
 basketRoute.post('/addToBasket', async (req, res) => {
   const check = await Basket.findAll({
     raw: true,
@@ -27,18 +30,25 @@ basketRoute.post('/addToBasket', async (req, res) => {
       { drugId: req.body.id },
       { orderId: null },
     ],
+    include: {
+      model: Drug,
+    },
   });
 
+  const check2 = check.map((el) => el['Drug.havePromo']);
+
   if (check.length > 0) {
-    const newCount = Number(check[0].count + 1);
-    await Basket.update(
-      {
-        count: newCount,
-      },
-      {
-        where: { id: check[0].id },
-      },
-    );
+    if (!check2) {
+      const newCount = Number(check[0].count + 1);
+      await Basket.update(
+        {
+          count: newCount,
+        },
+        {
+          where: { id: check[0].id },
+        },
+      );
+    }
   } else {
     await Basket.create({
       drugId: req.body.id,
@@ -51,6 +61,7 @@ basketRoute.post('/addToBasket', async (req, res) => {
   res.end();
 });
 
+// Отрисовка корзины
 basketRoute.get('/basket', async (req, res) => {
   const allBaskets = await Basket.findAll({
     raw: true,
@@ -61,9 +72,10 @@ basketRoute.get('/basket', async (req, res) => {
     include: {
       model: Drug,
     },
+    order: [
+      [{ model: Drug }, 'id', 'DESC'],
+    ],
   });
-
-  // console.log(allBaskets);
 
   const total = findTotal(allBaskets);
   const totalDiscount = findDiscount(allBaskets);
@@ -72,6 +84,7 @@ basketRoute.get('/basket', async (req, res) => {
   res.render('basket', { allBaskets, total, totalDiscount });
 });
 
+// кор-ка товара в корзине(-)
 basketRoute.post('/minus', async (req, res) => {
   const { id } = req.body;
   const basket = await Basket.findByPk(id, {
@@ -99,8 +112,10 @@ basketRoute.post('/minus', async (req, res) => {
       ],
       include: {
         model: Drug,
-        order: [['Drug.id', 'DESC']],
       },
+      order: [
+        [{ model: Drug }, 'id', 'DESC'],
+      ],
     });
     const total = findTotal(allBaskets);
     const totalDiscount = findDiscount(allBaskets);
@@ -124,8 +139,10 @@ basketRoute.post('/minus', async (req, res) => {
       ],
       include: {
         model: Drug,
-        order: [['Drug.id', 'DESC']],
       },
+      order: [
+        [{ model: Drug }, 'id', 'DESC'],
+      ],
     });
 
     const total = findTotal(allBaskets);
@@ -140,6 +157,7 @@ basketRoute.post('/minus', async (req, res) => {
   }
 });
 
+// Передаем итоговую сумму в отрисовку страницы заказа
 basketRoute.post('/addToOrder', (req, res) => {
   const { total } = req.body;
   res.render('order', {
@@ -148,53 +166,57 @@ basketRoute.post('/addToOrder', (req, res) => {
   });
 });
 
+// кор-ка корзины (+)
 basketRoute.post('/plus', async (req, res) => {
   const { id } = req.body;
   const basket = await Basket.findByPk(id, {
     raw: true,
-  });
-  const newCount = basket.count + 1;
-
-  await Basket.update(
-    {
-      count: newCount,
-    },
-    {
-      where:
-        { id },
-    },
-  );
-
-  const allBaskets = await Basket.findAll({
-    raw: true,
-    where: [
-      { userId: req.session.user.id },
-      { orderId: null },
-    ],
     include: {
       model: Drug,
-      order: [['Drug.id', 'DESC']],
     },
   });
-  console.log(allBaskets);
-  const total = findTotal(allBaskets);
-  const totalDiscount = findDiscount(allBaskets);
 
-  res.render('basket', {
-    layout: false,
-    allBaskets,
-    total,
-    totalDiscount,
-  });
+  // console.log(basket['Drug.havePromo']);
+  if (!basket['Drug.havePromo']) {
+    const newCount = basket.count + 1;
+    await Basket.update(
+      {
+        count: newCount,
+      },
+      {
+        where:
+          { id },
+      },
+    );
+
+    const allBaskets = await Basket.findAll({
+      raw: true,
+      where: [
+        { userId: req.session.user.id },
+        { orderId: null },
+      ],
+      include: {
+        model: Drug,
+      },
+      order: [
+        [{ model: Drug }, 'id', 'DESC'],
+      ],
+    });
+    const total = findTotal(allBaskets);
+    const totalDiscount = findDiscount(allBaskets);
+
+    res.render('basket', {
+      layout: false,
+      allBaskets,
+      total,
+      totalDiscount,
+    });
+  } else {
+    res.send('Внимание! Акционный товар можно добавлять в корзину только в единичном экземпляре');
+  }
 });
 
-basketRoute.post('/addToOrder', (req, res) => {
-  const { total } = req.body;
-  res.render('order', {
-    total,
-    layout: false,
-  });
-});
+// отрисовка страницы заказа
 basketRoute.get('/order', async (req, res) => {
   const allBaskets = await Basket.findAll({
     raw: true,
@@ -210,6 +232,7 @@ basketRoute.get('/order', async (req, res) => {
   res.render('order', { total });
 });
 
+// Запись в базу данных о заказе, завершение оформления
 basketRoute.post('/order/status', async (req, res) => {
   const { adress, tel } = req.body;
   // console.log(adress, tel);
@@ -223,6 +246,11 @@ basketRoute.post('/order/status', async (req, res) => {
       model: Drug,
     },
   });
+
+  // const drugIdNew = allBaskets.map((drug) => drug['Drug.id']);
+  // const drugCountNew = allBaskets.map((drug) => drug['Drug.count']);
+  // console.log(drugIdNew, drugCountNew);
+
   const total = findTotal(allBaskets);
   // console.log(adress, tel, total);
   const order = await Order.create({

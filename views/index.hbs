@@ -24,7 +24,12 @@
       {{#if havePromo}}
       <p class="item-discount">Цена со скидкой: {{discountPrice}} руб.</p>
       {{/if}}
+      {{#if count}}
+      <p>В наличии</p>
       <button data-id="{{id}}" type="button" class="jsBtn">В корзину</button>
+      {{else}}
+      <p>Товара нет в наличии</p>
+      {{/if}}
     </div>
     {{/each}}
     {{else}}
