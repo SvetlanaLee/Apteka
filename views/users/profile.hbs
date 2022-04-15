@@ -1,19 +1,37 @@
 <h1 style="font-size: 55px;">Профиль</h1>
-<div class="profilebody">
-<h2>Имя<p style="color: #00408B">{{user.name}}</p></h2>
-<h2>Логин<p style="color: #00408B"> {{user.login}} </p></h2>
-<h2>Электронная почта<p style="color: #00408B">  {{user.email}} </p></h2>
-<hr>
-<a href="/profile/edit"><button class="btn4"  >Редактировать профиль</button></a>
-<br>
-<h1>Мои заказы</h1>
-{{!-- <a href="/profile/orders">Мои заказы</a> --}}
-{{#each orders}}
-<div data-orderId="{{id}}">
-  <h4><a href="/profile/orders/{{id}}">Номер заказа: {{id}}</a></h4>
-  <p>Дата: {{updatedAt}}</p>
-  <p>Цена: {{total}} руб.</p>
-</div>
-{{/each}}
-<h1>Избранное</h1>
+<div class="profilebody container">
+  <h2>Имя<p style="color: #00408B">{{user.name}}</p>
+  </h2>
+  <h2>Логин<p style="color: #00408B"> {{user.login}} </p>
+  </h2>
+  <h2>Электронная почта<p style="color: #00408B"> {{user.email}} </p>
+  </h2>
+  <hr>
+  <a href="/profile/edit"><button class="btn4">Редактировать профиль</button></a>
+  <br>
+  <h1>Мои заказы</h1>
+  {{#each orders}}
+  <div class="accordion accordion-flush w-100 mt-3" id="accordionOrders">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Номер заказа: {{id}}
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+        data-bs-parent="#accordionFlushOrders">
+        <div class="accordion-body">
+          <p>Дата: {{updatedAt}}</p>
+          <p>Лекарство: {{'Baskets.Drug.name'}}</p>
+          <p>Цена: {{'Baskets.Drug.price'}} руб.</p>
+          <p>Цена со скидкой: {{'Baskets.Drug.discountPrice'}} руб.</p>
+          <p>Количество: {{'Baskets.Drug.count'}} руб.</p>
+          <p>Общая цена: {{total}} руб.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
 </div>
