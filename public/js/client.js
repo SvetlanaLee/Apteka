@@ -92,8 +92,36 @@ async function getOrder(event) {
   }
 }
 
+async function findDrugs(event) {
+  event.preventDefault();
+  console.log('find');
+  const data = {
+    name: event.target.nameDrug.value,
+  };
+
+  const response4 = await fetch('/drug/id', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  console.log(data);
+  const id = await response4.text();
+  console.log(id);
+  if (id === 'not') {
+    window.location.href = '/drugs/undef';
+  } else {
+    window.location.href = `/drugs/${id}`;
+  }
+  // document.querySelector('.bodyindex').innerHTML = html;
+}
+
 document.querySelector('.carousel-inner')?.addEventListener('click', addPromoToBasket);
 
 document.querySelector('.allCards')?.addEventListener('click', addToBasket);
 
 document.querySelector('.js-order')?.addEventListener('click', getOrder);
+
+document.jsFind?.addEventListener('submit', findDrugs);

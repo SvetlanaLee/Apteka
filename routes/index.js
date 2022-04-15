@@ -101,4 +101,26 @@ indexRoute.get('/', async (req, res) => {
   });
 });
 
+indexRoute.post('/drug/id', async (req, res) => {
+  const { name } = req.body;
+  const drugs = await Drug.findAll({ raw: true });
+  // const names = drugs.map((drug) => drug.name);
+  const result = drugs.filter((el) => el.name.toLowerCase().includes(name.toLowerCase()));
+  console.log(result);
+  if (result.length > 0) {
+    res.send(`${result[0].id}`);
+  } else {
+    res.send('not');
+  }
+});
+
+indexRoute.get('/drugs/undef', (req, res) => {
+  res.render('undef');
+});
+
+indexRoute.get('/drugs/:id', async (req, res) => {
+  const drug = await Drug.findByPk(req.params.id, { raw: true });
+  res.render('find', drug);
+});
+
 module.exports = indexRoute;

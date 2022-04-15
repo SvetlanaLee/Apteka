@@ -11,6 +11,10 @@
   <br>
   <h1 style="text-align: center;">Лекарства</h1>
   <br>
+  <form name="jsFind" action="/drug/id" method="POST">
+    <input name="nameDrug" type="text" placeholder="Введите название лекарства">
+    <button type="submit">Поиск</button>
+  </form>
 </div>
 <div class="bodyindex">
   {{#if isAuthorized}}

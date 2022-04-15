@@ -17,7 +17,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Полчаcика',
+        name: 'Полчасика',
         price: 30,
         categoryId: 1,
         image: '/img/tabletki.jpeg',
