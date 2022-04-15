@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Promo.init(
     {
-      date: DataTypes.DATE,
-      end: DataTypes.DATE,
+      date: DataTypes.DATEONLY,
+      end: DataTypes.DATEONLY,
+      discount: DataTypes.INTEGER,
     },
     {
       sequelize,
