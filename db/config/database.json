@@ -1,18 +1,19 @@
 {
-  "development": 
-  {
-    "use_env_variable": "DB_URL"
+  "development": {
+    "use_env_variable": "DATABASE_URL"
   },
   "test": {
-    "use_env_variable": "DB_URL_TEST_DB"
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "DB_URL_PRODUCTION_DB",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
