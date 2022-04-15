@@ -1,8 +1,8 @@
 const indexRoute = require('express').Router();
 // const checkAuth = require('../middleware/checkAuth');
 
+const { Op } = require('sequelize');
 const { Drug, Promo } = require('../db/models');
-const { Op } = require("sequelize");
 
 // получаем отформатированную дату
 async function formatDate(date) {
@@ -15,6 +15,7 @@ async function formatDate(date) {
     : date.getDate();
   const dateInFormatYYYYMMDD = `${year}-${month}-${day}`;
   return dateInFormatYYYYMMDD;
+}
 
 async function promoUpdate() {
   const allPromo = await Promo.findAll({ raw: true });
