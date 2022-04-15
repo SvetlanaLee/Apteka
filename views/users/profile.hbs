@@ -1,9 +1,11 @@
+<h1 style="font-size: 55px;">Профиль</h1>
 <div class="profilebody">
-<h1>Профиль</h1>
-<h2>Имя: {{user.name}}</h2>
-<h2>Логин: {{user.login}}</h2>
-<h2>Электронная почта: {{user.email}}</h2>
-<a href="/profile/edit">Редактировать профиль</a>
+<h2>Имя<p style="color: #00408B">{{user.name}}</p></h2>
+<h2>Логин<p style="color: #00408B"> {{user.login}} </p></h2>
+<h2>Электронная почта<p style="color: #00408B">  {{user.email}} </p></h2>
+<hr>
+<a href="/profile/edit"><button class="btn4"  >Редактировать профиль</button></a>
+<br>
 <h1>Мои заказы</h1>
 {{!-- <a href="/profile/orders">Мои заказы</a> --}}
 {{#each orders}}

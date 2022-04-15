@@ -25,12 +25,14 @@ module.exports = (sequelize, DataTypes) => {
       categoryId: DataTypes.INTEGER,
       promoId: DataTypes.INTEGER,
       count: DataTypes.INTEGER,
+      discountPrice: DataTypes.INTEGER,
+      havePromo: DataTypes.BOOLEAN,
     },
 
     {
       sequelize,
       modelName: "Drug",
-    }
+    },
   );
   return Drug;
 };
