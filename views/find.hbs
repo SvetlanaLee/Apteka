@@ -1,25 +1,7 @@
-{{#if isAuthorized}}
-{{> promoAuth}}
-{{else}}
-<div class="alert alert-warning text-center opacity-75" role="alert">
-  <h4>Для покупки необходимо <a href="/auth" class="alert-link"> авторизоваться</a></h4>
-</div>
-{{> promo}}
-{{/if}}
 
-<div class="drugbod">
-  <br>
-  <h1 style="text-align: center;">Лекарства</h1>
-  <br>
-  <form name="jsFind" action="/drug/id" method="POST">
-    <input name="nameDrug" type="text" placeholder="Введите название лекарства">
-    <button type="submit">Поиск</button>
-  </form>
-</div>
-<div class="bodyindex">
-  {{#if isAuthorized}}
+<h3>{{name}}</h3>
+{{#if isAuthorized}}
   <div class="allCards">
-    {{#each drugs}}
     <div class="card">
       <img class="product-img" src="{{image}}" alt="" width="200">
       <h4 class="item-title">{{name}}</h4>
@@ -35,15 +17,11 @@
       <p>Товара нет в наличии</p>
       {{/if}}
     </div>
-    {{/each}}
     {{else}}
-    {{#each drugs}}
     <div class="card" data-id="{{id}}">
       <img src="{{image}}" alt="" width="250px" height="250px" style="margin-top: 5px;">
       <h4>{{name}}</h4>
       <p>Описание: {{info}}</p>
       <p>Цена: {{price}} руб.</p>
     </div>
-    {{/each}}
     {{/if}}
-  </div>
