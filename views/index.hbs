@@ -1,17 +1,21 @@
-{{#unless isAuthorized}}
-<h2 class="vxod">Для покупки необходимо <a href="/auth"> Aвторизоваться</h2></a>
-{{/unless}}
+{{#if isAuthorized}}
+{{> promoAuth}}
+{{else}}
+<div class="alert alert-warning text-center" role="alert">
+  <h4>Для покупки необходимо <a href="/auth" class="alert-link"> авторизоваться<a></h4>
+</div>
+{{> promo}}
+{{/if}}
+
+<h3>Лекарства</h3>
 <div class="drugbod">
   <br>
 <h1 style="text-align: center;">Лекарства</h1>
 <br>
 <div class="bodyindex">
 {{#if isAuthorized}}
-
 <div class="allCards">
-
 {{#each drugs}}
-
 <div class="card">
   <img class="product-img" src="{{image}}" alt="" width="200">
   <h4 class="item-title">{{name}}</h4>
@@ -21,8 +25,6 @@
   <p class="item-discount">цена со скидкой: {{discountPrice}}</p>
   {{/if}}
   <button data-id="{{id}}" type="button" class="jsBtn">купить</button>
-
-
 </div>
 {{/each}}
 {{else}}
@@ -35,4 +37,3 @@
 </div>
 {{/each}}
 {{/if}}
-</div>
