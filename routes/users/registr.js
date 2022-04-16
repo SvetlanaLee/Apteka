@@ -2,12 +2,8 @@ const registrRoute = require('express').Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { User } = require('../../db/models');
-const { isAuthorized } = require('../../middleware/isAuthorized');
-const checkAuth = require('../../middleware/checkAuth');
 
 const mailer = require('../../nodemailer');
-// const jwt = require('jsonwebtoken');
-// const auth = require('./passport');
 
 registrRoute.get('/reg', (req, res) => {
   res.render('users/reg');
@@ -54,10 +50,8 @@ registrRoute.post('/auth', async (req, res) => {
     where: { login },
   });
   if (user && (await bcrypt.compare(password, user.password))) {
-    console.log('pass', await bcrypt.compare(password, user.password));
     req.session.user = user;
     req.session.isAuthorized = true;
-    console.log('req.session.user', req.session.user);
     return res.redirect('/');
   } if (login === 'admin' && password === '123') {
     req.session.user = user;
@@ -74,22 +68,36 @@ registrRoute.get(
 );
 
 registrRoute.get(
-
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/protected',
     failureRedirect: '/failure',
   }),
-
-  passport.authenticate('google', {
-    // successRedirect: '/protected',
-    failureRedirect: '/failure',
-  }),
-  // passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
-  (req, res) => {
-    // req.session.user = user;
+  async (req, res) => {
+    console.log('PASSPORT_USER: ', req.session?.passport?.user);
+    const email = req.session?.passport?.user.email;
+    console.log('EMAIL: ', email);
+    let user = await User.findOne({
+      where: { email },
+    });
+    if (!user) {
+      const login = req.session?.passport?.user.id;
+      const name = req.session?.passport?.user.displayName
+        || req.session?.passport?.user?.name?.givenName;
+      const password = '';
+      try {
+        user = await User.create({
+          name,
+          email,
+          password: await bcrypt.hash(password, 10),
+          login,
+        });
+      } catch (error) {
+        console.log(error);
+        res.send('Something wrong');
+      }
+    }
+    req.session.user = user;
     req.session.isAuthorized = true;
-    // console.log('req.session.user', req.session.user);
     return res.redirect('/');
   },
 );
