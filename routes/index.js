@@ -30,7 +30,6 @@ async function promoUpdate() {
 
   // ищем актуальную акцию
   const currentPromo = allPromo.filter((promo) => promo.date <= now && promo.end >= now);
-  // console.log(currentPromo[0].id);
 
   // обновляем БД по акционным товарам
   await Drug.update(
@@ -104,7 +103,6 @@ indexRoute.get('/', async (req, res) => {
 indexRoute.post('/drug/id', async (req, res) => {
   const { name } = req.body;
   const drugs = await Drug.findAll({ raw: true });
-  // const names = drugs.map((drug) => drug.name);
   const result = drugs.filter((el) => el.name.toLowerCase().includes(name.toLowerCase()));
   console.log(result);
   if (result.length > 0) {
